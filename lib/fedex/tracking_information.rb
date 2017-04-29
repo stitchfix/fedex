@@ -29,7 +29,7 @@ module Fedex
     }
 
     attr_reader :tracking_number, :signature_name, :service_type, :status,
-                :delivery_at, :events, :unique_tracking_number, :estimated_delivery_at
+                :delivery_at, :events, :unique_tracking_number, :estimated_delivery_at, :shipped_at
 
     def initialize(details = {})
       @details = details
@@ -46,6 +46,10 @@ module Fedex
 
       if details.has_key?(:estimated_delivery_timestamp)
         @estimated_delivery_at = Time.parse(details[:estimated_delivery_timestamp])
+      end
+      
+      if details[:events].select { |event| event[:event_type] == "PU" }.first
+        @shipped_at = details[:events].select { |event| event[:event_type] == "PU" }.first[:timestamp]
       end
 
       @events = [details[:events]].flatten.compact.map do |event_details|
