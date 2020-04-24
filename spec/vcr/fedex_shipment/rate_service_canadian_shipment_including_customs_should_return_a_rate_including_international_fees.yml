@@ -1,0 +1,254 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://gatewaybeta.fedex.com/xml/
+    body:
+      encoding: UTF-8
+      string: |-
+        <RateRequest xmlns="http://fedex.com/ws/rate/v10">
+          <WebAuthenticationDetail>
+            <UserCredential>
+              <Key>xxx</Key>
+              <Password>xxx</Password>
+            </UserCredential>
+          </WebAuthenticationDetail>
+          <ClientDetail>
+            <AccountNumber>xxx</AccountNumber>
+            <MeterNumber>xxx</MeterNumber>
+            <Localization>
+              <LanguageCode>en</LanguageCode>
+              <LocaleCode>us</LocaleCode>
+            </Localization>
+          </ClientDetail>
+          <Version>
+            <ServiceId>crs</ServiceId>
+            <Major>10</Major>
+            <Intermediate>0</Intermediate>
+            <Minor>0</Minor>
+          </Version>
+          <RequestedShipment>
+            <DropoffType>REGULAR_PICKUP</DropoffType>
+            <ServiceType>FEDEX_GROUND</ServiceType>
+            <PackagingType>YOUR_PACKAGING</PackagingType>
+            <Shipper>
+              <Contact>
+                <PersonName>Sender</PersonName>
+                <CompanyName>Company</CompanyName>
+                <PhoneNumber>555-555-5555</PhoneNumber>
+              </Contact>
+              <Address>
+                <StreetLines>Main Street</StreetLines>
+                <City>Harrison</City>
+                <StateOrProvinceCode>AR</StateOrProvinceCode>
+                <PostalCode>72601</PostalCode>
+                <CountryCode>US</CountryCode>
+              </Address>
+            </Shipper>
+            <Recipient>
+              <Contact>
+                <PersonName>Recipient</PersonName>
+                <CompanyName>Company</CompanyName>
+                <PhoneNumber>555-555-5555</PhoneNumber>
+              </Contact>
+              <Address>
+                <StreetLines>Address Line 1</StreetLines>
+                <City>Richmond</City>
+                <StateOrProvinceCode>BC</StateOrProvinceCode>
+                <PostalCode>V7C4V4</PostalCode>
+                <CountryCode>CA</CountryCode>
+                <Residential>true</Residential>
+              </Address>
+            </Recipient>
+            <ShippingChargesPayment>
+              <PaymentType>SENDER</PaymentType>
+              <Payor>
+                <AccountNumber>xxx</AccountNumber>
+                <CountryCode>US</CountryCode>
+              </Payor>
+            </ShippingChargesPayment>
+            <CustomsClearanceDetail>
+              <Broker>
+                <AccountNumber>510087143</AccountNumber>
+                <Tins>
+                  <TinType>BUSINESS_NATIONAL</TinType>
+                  <Number>431870271</Number>
+                  <Usage>Usage</Usage>
+                </Tins>
+                <Contact>
+                  <ContactId>1</ContactId>
+                  <PersonName>Broker Name</PersonName>
+                  <Title>Broker</Title>
+                  <CompanyName>Broker One</CompanyName>
+                  <PhoneNumber>555-555-5555</PhoneNumber>
+                  <PhoneExtension>555-555-5555</PhoneExtension>
+                  <PagerNumber>555</PagerNumber>
+                  <FaxNumber>555-555-5555</FaxNumber>
+                  <EMailAddress>contact@me.com</EMailAddress>
+                </Contact>
+                <Address>
+                  <StreetLines>Main Street</StreetLines>
+                  <City>Franklin Park</City>
+                  <StateOrProvinceCode>IL</StateOrProvinceCode>
+                  <PostalCode>60131</PostalCode>
+                  <UrbanizationCode>123</UrbanizationCode>
+                  <CountryCode>US</CountryCode>
+                  <Residential>false</Residential>
+                </Address>
+              </Broker>
+              <ClearanceBrokerage>BROKER_INCLUSIVE</ClearanceBrokerage>
+              <ImporterOfRecord>
+                <AccountNumber>22222</AccountNumber>
+                <Tins>
+                  <TinType>BUSINESS_NATIONAL</TinType>
+                  <Number>22222</Number>
+                  <Usage>Usage</Usage>
+                </Tins>
+                <Contact>
+                  <ContactId>1</ContactId>
+                  <PersonName>Importer Name</PersonName>
+                  <Title>Importer</Title>
+                  <CompanyName>Importer One</CompanyName>
+                  <PhoneNumber>555-555-5555</PhoneNumber>
+                  <PhoneExtension>555-555-5555</PhoneExtension>
+                  <PagerNumber>555</PagerNumber>
+                  <FaxNumber>555-555-5555</FaxNumber>
+                  <EMailAddress>contact@me.com</EMailAddress>
+                </Contact>
+                <Address>
+                  <StreetLines>Main Street</StreetLines>
+                  <City>Chicago</City>
+                  <StateOrProvinceCode>IL</StateOrProvinceCode>
+                  <PostalCode>60611</PostalCode>
+                  <UrbanizationCode>2308</UrbanizationCode>
+                  <CountryCode>US</CountryCode>
+                  <Residential>false</Residential>
+                </Address>
+              </ImporterOfRecord>
+              <RecipientCustomsId>
+                <Type>COMPANY</Type>
+                <Value>1254587</Value>
+              </RecipientCustomsId>
+              <DutiesPayment>
+                <PaymentType>SENDER</PaymentType>
+                <Payor>
+                  <AccountNumber>510087143</AccountNumber>
+                  <CountryCode>US</CountryCode>
+                </Payor>
+              </DutiesPayment>
+              <Commodities>
+                <Name>Cotton Coat</Name>
+                <NumberOfPieces>2</NumberOfPieces>
+                <Description>Cotton Coat</Description>
+                <CountryOfManufacture>US</CountryOfManufacture>
+                <HarmonizedCode>6103320000</HarmonizedCode>
+                <Weight>
+                  <Units>LB</Units>
+                  <Value>2</Value>
+                </Weight>
+                <Quantity>3</Quantity>
+                <UnitPrice>
+                  <Currency>USD</Currency>
+                  <Amount>50</Amount>
+                </UnitPrice>
+                <CustomsValue>
+                  <Currency>USD</Currency>
+                  <Amount>150</Amount>
+                </CustomsValue>
+              </Commodities>
+              <Commodities>
+                <Name>Poster</Name>
+                <NumberOfPieces>1</NumberOfPieces>
+                <Description>Paper Poster</Description>
+                <CountryOfManufacture>US</CountryOfManufacture>
+                <HarmonizedCode>4817100000</HarmonizedCode>
+                <Weight>
+                  <Units>LB</Units>
+                  <Value>0.2</Value>
+                </Weight>
+                <Quantity>3</Quantity>
+                <UnitPrice>
+                  <Currency>USD</Currency>
+                  <Amount>50</Amount>
+                </UnitPrice>
+                <CustomsValue>
+                  <Currency>USD</Currency>
+                  <Amount>150</Amount>
+                </CustomsValue>
+              </Commodities>
+            </CustomsClearanceDetail>
+            <RateRequestTypes>ACCOUNT</RateRequestTypes>
+            <PackageCount>2</PackageCount>
+            <RequestedPackageLineItems>
+              <GroupPackageCount>1</GroupPackageCount>
+              <Weight>
+                <Units>LB</Units>
+                <Value>2</Value>
+              </Weight>
+              <Dimensions>
+                <Length>10</Length>
+                <Width>5</Width>
+                <Height>4</Height>
+                <Units>IN</Units>
+              </Dimensions>
+            </RequestedPackageLineItems>
+            <RequestedPackageLineItems>
+              <GroupPackageCount>1</GroupPackageCount>
+              <Weight>
+                <Units>LB</Units>
+                <Value>6</Value>
+              </Weight>
+              <Dimensions>
+                <Length>5</Length>
+                <Width>5</Width>
+                <Height>4</Height>
+                <Units>IN</Units>
+              </Dimensions>
+            </RequestedPackageLineItems>
+          </RequestedShipment>
+        </RateRequest>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 20 Apr 2020 23:36:07 GMT
+      Server:
+      - Apache
+      Set-Cookie:
+      - siteDC=edc; path=/; domain=.fedex.com; expires=Tue, 21-Apr-2020 23:36:07 GMT
+      X-Csr-Log-Transaction-Id:
+      - 6709dca6-dadb-4b39-a41c-4cc647674c69
+      X-Csr-Elapsed-Millis:
+      - '406'
+      Vary:
+      - Accept-Encoding
+      Responsesslprotocol:
+      - TLSv1.2
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - application/xml
+    body:
+      encoding: ASCII-8BIT
+      string: <?xml version="1.0" encoding="UTF-8"?><RateReply xmlns="http://fedex.com/ws/rate/v10"><HighestSeverity>NOTE</HighestSeverity><Notifications><Severity>NOTE</Severity><Source>crs</Source><Code>886</Code><Message>Money
+        Back Guarantee is not eligible for this pick up/delivery postal/zip code.
+        </Message><LocalizedMessage>Money Back Guarantee is not eligible for this
+        pick up/delivery postal/zip code. </LocalizedMessage></Notifications><Version><ServiceId>crs</ServiceId><Major>10</Major><Intermediate>0</Intermediate><Minor>0</Minor></Version><RateReplyDetails><ServiceType>FEDEX_GROUND</ServiceType><PackagingType>YOUR_PACKAGING</PackagingType><DestinationAirportId>YVR</DestinationAirportId><IneligibleForMoneyBackGuarantee>true</IneligibleForMoneyBackGuarantee><SignatureOption>SERVICE_DEFAULT</SignatureOption><ActualRateType>PAYOR_ACCOUNT_PACKAGE</ActualRateType><RatedShipmentDetails><ShipmentRateDetail><RateType>PAYOR_ACCOUNT_PACKAGE</RateType><RateZone>51</RateZone><RatedWeightMethod>ACTUAL</RatedWeightMethod><DimDivisor>0</DimDivisor><FuelSurchargePercent>6.0</FuelSurchargePercent><TotalBillingWeight><Units>LB</Units><Value>8.0</Value></TotalBillingWeight><TotalBaseCharge><Currency>USD</Currency><Amount>52.99</Amount></TotalBaseCharge><TotalFreightDiscounts><Currency>USD</Currency><Amount>0.0</Amount></TotalFreightDiscounts><TotalNetFreight><Currency>USD</Currency><Amount>52.99</Amount></TotalNetFreight><TotalSurcharges><Currency>USD</Currency><Amount>13.04</Amount></TotalSurcharges><TotalNetFedExCharge><Currency>USD</Currency><Amount>66.03</Amount></TotalNetFedExCharge><TotalTaxes><Currency>USD</Currency><Amount>0.0</Amount></TotalTaxes><TotalNetCharge><Currency>USD</Currency><Amount>66.03</Amount></TotalNetCharge><TotalRebates><Currency>USD</Currency><Amount>0.0</Amount></TotalRebates><TotalDutiesAndTaxes><Currency>USD</Currency><Amount>0.0</Amount></TotalDutiesAndTaxes><TotalNetChargeWithDutiesAndTaxes><Currency>USD</Currency><Amount>108.14</Amount></TotalNetChargeWithDutiesAndTaxes><Surcharges><SurchargeType>RESIDENTIAL_DELIVERY</SurchargeType><Level>PACKAGE</Level><Description>Residential
+        delivery</Description><Amount><Currency>USD</Currency><Amount>9.3</Amount></Amount></Surcharges><Surcharges><SurchargeType>FUEL</SurchargeType><Level>PACKAGE</Level><Description>FedEx
+        Ground Fuel</Description><Amount><Currency>USD</Currency><Amount>3.74</Amount></Amount></Surcharges></ShipmentRateDetail><RatedPackages><GroupNumber>0</GroupNumber><PackageRateDetail><RateType>PAYOR_ACCOUNT_PACKAGE</RateType><RatedWeightMethod>ACTUAL</RatedWeightMethod><BillingWeight><Units>LB</Units><Value>2.0</Value></BillingWeight><BaseCharge><Currency>USD</Currency><Amount>23.75</Amount></BaseCharge><TotalFreightDiscounts><Currency>USD</Currency><Amount>0.0</Amount></TotalFreightDiscounts><NetFreight><Currency>USD</Currency><Amount>23.75</Amount></NetFreight><TotalSurcharges><Currency>USD</Currency><Amount>6.36</Amount></TotalSurcharges><NetFedExCharge><Currency>USD</Currency><Amount>30.11</Amount></NetFedExCharge><TotalTaxes><Currency>USD</Currency><Amount>0.0</Amount></TotalTaxes><NetCharge><Currency>USD</Currency><Amount>30.11</Amount></NetCharge><TotalRebates><Currency>USD</Currency><Amount>0.0</Amount></TotalRebates><Surcharges><SurchargeType>RESIDENTIAL_DELIVERY</SurchargeType><Level>PACKAGE</Level><Description>Residential
+        delivery</Description><Amount><Currency>USD</Currency><Amount>4.65</Amount></Amount></Surcharges><Surcharges><SurchargeType>FUEL</SurchargeType><Level>PACKAGE</Level><Description>FedEx
+        Ground Fuel</Description><Amount><Currency>USD</Currency><Amount>1.71</Amount></Amount></Surcharges></PackageRateDetail></RatedPackages><RatedPackages><GroupNumber>0</GroupNumber><PackageRateDetail><RateType>PAYOR_ACCOUNT_PACKAGE</RateType><RatedWeightMethod>ACTUAL</RatedWeightMethod><BillingWeight><Units>LB</Units><Value>6.0</Value></BillingWeight><BaseCharge><Currency>USD</Currency><Amount>29.24</Amount></BaseCharge><TotalFreightDiscounts><Currency>USD</Currency><Amount>0.0</Amount></TotalFreightDiscounts><NetFreight><Currency>USD</Currency><Amount>29.24</Amount></NetFreight><TotalSurcharges><Currency>USD</Currency><Amount>6.68</Amount></TotalSurcharges><NetFedExCharge><Currency>USD</Currency><Amount>35.92</Amount></NetFedExCharge><TotalTaxes><Currency>USD</Currency><Amount>0.0</Amount></TotalTaxes><NetCharge><Currency>USD</Currency><Amount>35.92</Amount></NetCharge><TotalRebates><Currency>USD</Currency><Amount>0.0</Amount></TotalRebates><Surcharges><SurchargeType>RESIDENTIAL_DELIVERY</SurchargeType><Level>PACKAGE</Level><Description>Residential
+        delivery</Description><Amount><Currency>USD</Currency><Amount>4.65</Amount></Amount></Surcharges><Surcharges><SurchargeType>FUEL</SurchargeType><Level>PACKAGE</Level><Description>FedEx
+        Ground Fuel</Description><Amount><Currency>USD</Currency><Amount>2.03</Amount></Amount></Surcharges></PackageRateDetail></RatedPackages></RatedShipmentDetails></RateReplyDetails></RateReply>
+    http_version: 
+  recorded_at: Mon, 20 Apr 2020 23:36:08 GMT
+recorded_with: VCR 3.0.3
