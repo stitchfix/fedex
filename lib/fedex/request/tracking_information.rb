@@ -51,7 +51,7 @@ module Fedex
             error_message = begin
               "#{api_response["Fault"]["detail"]["fault"]["reason"]}\n--#{api_response["Fault"]["detail"]["fault"]["details"]["ValidationFailureDetail"]["message"].join("\n--")}"
             end rescue $1
-            raise TrackingInformationFault, error_message
+            raise FedexInternalServerError, error_message
           end
         end
       end
