@@ -45,7 +45,7 @@ module Fedex
             if invalid_tracking_number? error_code
               raise InvalidTrackingNumberError, "[#{error_code}] #{error_message} (#{@package_id})"
             else
-              raise TrackingInformationError, "[#{error_code}] #{error_message}"
+              raise FedexRequestError, "[#{error_code}] #{error_message}"
             end
           else
             error_message = begin

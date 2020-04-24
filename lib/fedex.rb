@@ -56,7 +56,7 @@ module Fedex
   # Indicates a general fault in the Fedex web service
   class FedexInternalServerError < RateError; end
   # Indicates a general error returned from the Fedex web service
-  class TrackingInformationError < RateError; end
+  class FedexRequestError < RateError; end
   # A submitted tracking number is invalid
-  class InvalidTrackingNumberError < TrackingInformationError; end
+  class InvalidTrackingNumberError < FedexRequestError; end
 end
