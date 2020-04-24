@@ -1,7 +1,12 @@
 require 'vcr'
+require_relative 'credentials'
 
 VCR.configure do |c|
-  c.cassette_library_dir  = File.expand_path('../../vcr', __FILE__)
+  path = '../../vcr'
+  if real_credentials?
+    path = '../../vcr-real-requests'
+  end
+  c.cassette_library_dir  = File.expand_path(path, __FILE__)
   c.hook_into :webmock
 end
 

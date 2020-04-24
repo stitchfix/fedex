@@ -11,3 +11,4 @@ fedex_credentials.yml
 *.bbprojectd
 .DS_Store
 hacks
+spec/vcr-real-requests

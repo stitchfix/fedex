@@ -243,7 +243,18 @@ Fedex::Shipment::DROP_OFF_TYPES
 
 ## Testing
 
-Previously, this gem, while it did record requests 
+To test, run `rspec`.
+
+Previously, this gem, while it did record requests, it did not record them.  However, this makes it difficult to test
+minor changes as credentials are needed to run the tests but may not _actually_ be required.  Requests are now included,
+but it is up to the developer to periodically check that this gem **actually** still works against the Fedex web
+service.
+
+When testing against real Fedex endpoints, copy `spec/config/fedex_credentials.example.yml` to
+`spec/config/fedex_credentials.yml` and fill it with correct values for both `development` and `production`.  VCRed
+requests will be recorded to `spec/vcr-real-requests`.  If there are any changes with the real API, you can adapt the
+real requests into the fake requests (mostly, just change the username, password, account number, and meter numbers to
+`xxx`) found under `spec/vcr`.
 
 # Contributors:
 - [jazminschroeder](http://github.com/jazminschroeder) (Jazmin Schroeder)
