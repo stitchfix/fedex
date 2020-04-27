@@ -47,6 +47,19 @@ module Fedex
         tracking_info.status.should == "Shipment cancelled by sender"
       end
 
+      # The following tests require constructed responses
+      unless real_credentials?
+        it "does not raise an exception when an event's address is missing" do
+          # In the past, if an address block was missing in one of the Fedex tracking events, a
+          # "NoMethodError: undefined method `[]' for nil:NilClass" exception would be raised.
+          tracking_info = fedex.track(options).first
+          tracking_info.should_not be nil
+        end
+
+        it "raises an invalid tracking number exception" do
+          expect{ fedex.track(options).first }.to raise_error(Fedex::InvalidTrackingNumberError)
+        end
+      end
     end
   end
 end
