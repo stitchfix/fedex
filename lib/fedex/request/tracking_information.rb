@@ -36,12 +36,23 @@ module Fedex
             Fedex::TrackingInformation.new(details)
           end
         else
-          error_message = if response[:track_reply]
-            response[:track_reply][:notifications][:message]
+          if response[:track_reply]
+            error_message = response[:track_reply][:notifications][:message]
+            # These error codes come from the Fedex Webservices Developer Guide (2019)
+            # (https://www.fedex.com/us/developer/downloads/pdf/2019/FedEx_WebServices_DevelopersGuide_v2019.pdf
+            #  via https://www.fedex.com/en-us/developer/web-services/process.html#documentation).
+            error_code = response[:track_reply][:notifications][:code]
+            if invalid_tracking_number? error_code
+              raise InvalidTrackingNumberError, "[#{error_code}] #{error_message} (#{@package_id})"
+            else
+              raise FedexRequestError, "[#{error_code}] #{error_message}"
+            end
           else
-            "#{api_response["Fault"]["detail"]["fault"]["reason"]}\n--#{api_response["Fault"]["detail"]["fault"]["details"]["ValidationFailureDetail"]["message"].join("\n--")}"
-          end rescue $1
-          raise RateError, error_message
+            error_message = begin
+              "#{api_response["Fault"]["detail"]["fault"]["reason"]}\n--#{api_response["Fault"]["detail"]["fault"]["details"]["ValidationFailureDetail"]["message"].join("\n--")}"
+            end rescue $1
+            raise FedexInternalServerError, error_message
+          end
         end
       end
 
@@ -84,6 +95,15 @@ module Fedex
         Fedex::TrackingInformation::PACKAGE_IDENTIFIER_TYPES.include? package_type
       end
 
+      def invalid_tracking_number?(error_code)
+        # These error codes come from the Fedex Webservices Developer Guide (2019)
+        # (https://www.fedex.com/us/developer/downloads/pdf/2019/FedEx_WebServices_DevelopersGuide_v2019.pdf
+        #  via https://www.fedex.com/en-us/developer/web-services/process.html#documentation).  These can be grep'ed
+        # using pdfgrep (pdfgrep -ni 'Invalid tracking number' FedEx_WebServices_DevelopersGuide_v2019.pdf)
+        error_codes = %w{6035 6037 6070 6125 6135 6140 6145 6150 6172 6173 6174 6185 30020 30030 500195 500200 500205}
+        error_codes.include? error_code
+      end
     end
+
   end
 end
