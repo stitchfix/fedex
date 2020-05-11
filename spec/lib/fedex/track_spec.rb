@@ -59,6 +59,14 @@ module Fedex
         it "raises an invalid tracking number exception" do
           expect{ fedex.track(options).first }.to raise_error(Fedex::InvalidTrackingNumberError)
         end
+
+        it "raises a no-information-available exception" do
+          expect{ fedex.track(options).first }.to raise_error(Fedex::NoTrackingInformationAvailable)
+        end
+
+        it "raises a unable-to-process-request exception" do
+          expect{ fedex.track(options).first }.to raise_error(Fedex::FedexUnableToProcessRequest)
+        end
       end
     end
   end
