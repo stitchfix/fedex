@@ -47,17 +47,30 @@ module Fedex
         tracking_info.status.should == "Shipment cancelled by sender"
       end
 
-      # The following tests require constructed responses
+      # The following tests require constructed responses.  Each of these responses live in
+      # spec/vcr/fedex_tracking_information
       unless real_credentials?
         it "does not raise an exception when an event's address is missing" do
           # In the past, if an address block was missing in one of the Fedex tracking events, a
           # "NoMethodError: undefined method `[]' for nil:NilClass" exception would be raised.
+          options[:package_id] = '987654321098'
           tracking_info = fedex.track(options).first
           tracking_info.should_not be nil
         end
 
         it "raises an invalid tracking number exception" do
+          options[:package_id] = '1Z9999999999999999' # UPS tracking number
           expect{ fedex.track(options).first }.to raise_error(Fedex::InvalidTrackingNumberError)
+        end
+
+        it "raises a no-information-available exception" do
+          options[:package_id] = '999999999999' # A mock tracking number
+          expect{ fedex.track(options).first }.to raise_error(Fedex::NoTrackingInformationAvailable)
+        end
+
+        it "raises a unable-to-process-request exception" do
+          options[:package_id] = '999998888777' # A mock tracking number
+          expect{ fedex.track(options).first }.to raise_error(Fedex::FedexUnableToProcessRequest)
         end
       end
     end

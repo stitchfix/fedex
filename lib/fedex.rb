@@ -59,4 +59,8 @@ module Fedex
   class FedexRequestError < RateError; end
   # A submitted tracking number is invalid
   class InvalidTrackingNumberError < FedexRequestError; end
+  # No information is available for the submitted tracking number
+  class NoTrackingInformationAvailable < FedexRequestError; end
+  # Fedex service was unable to process the request
+  class FedexUnableToProcessRequest < FedexRequestError; end
 end

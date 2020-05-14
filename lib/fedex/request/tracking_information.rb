@@ -44,6 +44,10 @@ module Fedex
             error_code = response[:track_reply][:notifications][:code]
             if invalid_tracking_number? error_code
               raise InvalidTrackingNumberError, "[#{error_code}] #{error_message} (#{@package_id})"
+            elsif no_tracking_information_available? error_code
+              raise NoTrackingInformationAvailable, "[#{error_code}] #{error_message} (#{@package_id})"
+            elsif unable_to_process_request? error_code
+              raise FedexUnableToProcessRequest, "[#{error_code}] #{error_message} (#{@package_id})"
             else
               raise FedexRequestError, "[#{error_code}] #{error_message}"
             end
@@ -101,6 +105,21 @@ module Fedex
         #  via https://www.fedex.com/en-us/developer/web-services/process.html#documentation).  These can be grep'ed
         # using pdfgrep (pdfgrep -ni 'Invalid tracking number' FedEx_WebServices_DevelopersGuide_v2019.pdf)
         error_codes = %w{6035 6037 6070 6125 6135 6140 6145 6150 6172 6173 6174 6185 30020 30030 500195 500200 500205}
+        error_codes.include? error_code
+      end
+
+      def no_tracking_information_available?(error_code)
+        error_codes = %w{6041 9040 9041 9060 500139 500140 500144 500158 500170 500173}
+        error_codes.include? error_code
+      end
+
+      def unable_to_process_request?(error_code)
+        error_codes = %w{3035 3036 3037 3038 3040 3041 3042 3045 3046 3047 3048 3049 3050 3051 3052 3053 3054 3055
+                         6310 6320 6330 7010 7020 7025
+                         9035 9045 9050 9055 9065 9070 9075 9080 9081 9082 9085 9086 9090 9095 9100 10035 10036 10037
+                         10038 10040 10041 10042 10045 10046 10047 10048 10049 10050 10051 10052 10053 10054 11035 11036
+                         11037 10040 11042 11045 11046 11047 11048 11049 11050 11051 11052 11053 11054 11060 11065 11070
+                         11070 11075 11080 11110 11502 30010 30015 30040 500141 500142 500143 500172}
         error_codes.include? error_code
       end
     end
