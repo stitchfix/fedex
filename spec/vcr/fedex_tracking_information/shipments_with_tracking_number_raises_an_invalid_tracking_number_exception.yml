@@ -28,7 +28,7 @@ http_interactions:
             <Minor>0</Minor>
           </Version>
           <PackageIdentifier>
-            <Value>123456789012</Value>
+            <Value>1Z9999999999999999</Value>
             <Type>TRACKING_NUMBER_OR_DOORTAG</Type>
           </PackageIdentifier>
           <IncludeDetailedScans>true</IncludeDetailedScans>
