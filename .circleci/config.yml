@@ -23,6 +23,11 @@ jobs:
     working_directory: "~/fedex"
     steps:
     - checkout
+    - run:
+        name: Check for Gemfile.lock presence
+        command: ' if (test -f Gemfile.lock) then echo "Dont commit Gemfile.lock (see
+          https://github.com/stitchfix/eng-wiki/blob/master/architecture-decisions/0009-rubygem-dependencies-will-be-managed-more-explicitly.md)"
+          1>&2 ; exit 1 ; else exit 0 ; fi '
     - run: bundle config stitchfix01.jfrog.io $ARTIFACTORY_USER:$ARTIFACTORY_TOKEN
     - run: bundle install --full-index
     - run: bundle exec rspec --format RspecJunitFormatter --out /tmp/test-results/rspec.xml
@@ -33,7 +38,7 @@ jobs:
           fi
     - run:
         name: Notify Pager Duty
-        command: bundle exec y-notify "#mops-inb-outb-alerts"
+        command: bundle exec y-notify "#mops-transportation-alerts"
         when: on_fail
     - store_test_results:
         path: "/tmp/test-results"
@@ -43,6 +48,11 @@ jobs:
     working_directory: "~/fedex"
     steps:
     - checkout
+    - run:
+        name: Check for Gemfile.lock presence
+        command: ' if (test -f Gemfile.lock) then echo "Dont commit Gemfile.lock (see
+          https://github.com/stitchfix/eng-wiki/blob/master/architecture-decisions/0009-rubygem-dependencies-will-be-managed-more-explicitly.md)"
+          1>&2 ; exit 1 ; else exit 0 ; fi '
     - run: bundle config stitchfix01.jfrog.io $ARTIFACTORY_USER:$ARTIFACTORY_TOKEN
     - run: bundle install --full-index
     - run: bundle exec rspec --format RspecJunitFormatter --out /tmp/test-results/rspec.xml
@@ -53,7 +63,7 @@ jobs:
           fi
     - run:
         name: Notify Pager Duty
-        command: bundle exec y-notify "#mops-inb-outb-alerts"
+        command: bundle exec y-notify "#mops-transportation-alerts"
         when: on_fail
     - store_test_results:
         path: "/tmp/test-results"
@@ -68,7 +78,7 @@ workflows:
         - ruby-2.6.6
         filters:
           tags:
-            only: /^[0-9]+\.[0-9]+\.[0-9]+(\.?(RC|rc)[-\.]?\d*)?$/
+            only: /^[0-9]+\.[0-9]+\.[0-9]+(\.?(RC|rc)[-\.]?\w*)?$/
           branches:
             ignore: /.*/
     - ruby-2.7.1:
