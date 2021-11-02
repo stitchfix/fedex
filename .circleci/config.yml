@@ -1,11 +1,11 @@
-# DO NOT MODIFY - this is managed by Git Reduce in goro
+# DO NOT MODIFY - this is managed by Git Reduce in goro and generated from build-matrix.json
 #
 ---
 version: 2
 jobs:
   generate-and-push-docs:
     docker:
-    - image: circleci/ruby:3.0.2
+    - image: cimg/ruby:3.0.2
       auth:
         username: "$DOCKERHUB_USERNAME"
         password: "$DOCKERHUB_PASSWORD"
@@ -26,7 +26,7 @@ jobs:
           docs:push; fi
   release:
     docker:
-    - image: circleci/ruby:3.0.2
+    - image: cimg/ruby:3.0.2
       auth:
         username: "$DOCKERHUB_USERNAME"
         password: "$DOCKERHUB_PASSWORD"
@@ -43,7 +43,7 @@ jobs:
         command: bundle exec rake push_artifactory
   ruby-3.0.2:
     docker:
-    - image: circleci/ruby:3.0.2
+    - image: cimg/ruby:3.0.2
       auth:
         username: "$DOCKERHUB_USERNAME"
         password: "$DOCKERHUB_PASSWORD"
@@ -53,7 +53,7 @@ jobs:
     - run:
         name: Check for Gemfile.lock presence
         command: ' if (test -f Gemfile.lock) then echo "Dont commit Gemfile.lock (see
-          https://github.com/stitchfix/eng-wiki/blob/master/architecture-decisions/0009-rubygem-dependencies-will-be-managed-more-explicitly.md)"
+          https://github.com/stitchfix/eng-wiki/blob/main/architecture-decisions/0009-rubygem-dependencies-will-be-managed-more-explicitly.md)"
           1>&2 ; exit 1 ; else exit 0 ; fi '
     - run: bundle config stitchfix01.jfrog.io $ARTIFACTORY_USER:$ARTIFACTORY_TOKEN
     - run: bundle install --full-index
@@ -71,7 +71,7 @@ jobs:
         path: "/tmp/test-results"
   ruby-2.7.4:
     docker:
-    - image: circleci/ruby:2.7.4
+    - image: cimg/ruby:2.7.4
       auth:
         username: "$DOCKERHUB_USERNAME"
         password: "$DOCKERHUB_PASSWORD"
@@ -81,7 +81,7 @@ jobs:
     - run:
         name: Check for Gemfile.lock presence
         command: ' if (test -f Gemfile.lock) then echo "Dont commit Gemfile.lock (see
-          https://github.com/stitchfix/eng-wiki/blob/master/architecture-decisions/0009-rubygem-dependencies-will-be-managed-more-explicitly.md)"
+          https://github.com/stitchfix/eng-wiki/blob/main/architecture-decisions/0009-rubygem-dependencies-will-be-managed-more-explicitly.md)"
           1>&2 ; exit 1 ; else exit 0 ; fi '
     - run: bundle config stitchfix01.jfrog.io $ARTIFACTORY_USER:$ARTIFACTORY_TOKEN
     - run: bundle install --full-index
@@ -137,7 +137,7 @@ workflows:
         filters:
           branches:
             only:
-            - master
+            - main
     jobs:
     - ruby-3.0.2:
         context: org-global
